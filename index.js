@@ -4,6 +4,7 @@ const { PORT } = require('./config');
 const databaseConfig = require('./config/database');
 const expressConfig = require('./config/express');
 
+
 start();
 async function start() {
     const app = express();
