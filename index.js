@@ -3,6 +3,7 @@ const express = require('express');
 const { PORT } = require('./config');
 const databaseConfig = require('./config/database');
 const expressConfig = require('./config/express');
+const routesConfig = require('./config/routes');
 
 
 start();
@@ -11,9 +12,11 @@ async function start() {
 
     await databaseConfig(app);
     expressConfig(app);
-
-    app.get('/', (req, res) => {
-        res.send('It works')
-    });
+    routesConfig(app);
+    
+    //TODO remove in production
+    // app.get('/register', (req, res) => {
+    //     res.render('register')
+    // });
     app.listen(PORT, () => console.log(`Application started at http://localhost:${PORT}`));
 }
