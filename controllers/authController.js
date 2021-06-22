@@ -10,6 +10,7 @@ router.get('/register', isGuest(), (req, res) => {
 router.post(
     '/register',
     isGuest(),
+    body('email', 'Invalid email').isEmail(),
     body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),//TODO change acording requirments
     body('rePass').custom((value, { req }) => {
         if (value != req.body.password) {
@@ -22,19 +23,21 @@ router.post(
 
         try {
             if (errors.length > 0) {
+                const message = errors.map(e => e.msg).join('\n');
                 //TODO improve error messages
-                throw new Error('Validation error');
+                throw new Error(message);
             }
 
-            await req.auth.register(req.body.username, req.body.password)
+            await req.auth.register(req.body.username, req.body.email, req.body.password)
 
             res.redirect('/');//TODO change redirect location
         } catch (err) {
             console.log(err.message);
             const ctx = {
-                errors,
+                errors: err.message.split('\n'),
                 userData: {
-                    username: req.body.username
+                    username: req.body.username,
+                    email: req.body.email
                 }
             };
             res.render('user/register', ctx)
