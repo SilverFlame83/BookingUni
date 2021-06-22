@@ -8,13 +8,13 @@
 </head>
 
 <body>
-    {{#if errors}}
     <div id="container">
+    {{#if errors}}
         <div class="notification errorBox">
             {{#each errors}}
             <p><span>{{this}}</span></p>
-        </div>
         {{/each}}
+        </div>
     </div>
     {{/if}}
     <nav>
