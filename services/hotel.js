@@ -23,5 +23,5 @@ async function getHotelById(id){
 module.exports = {
     createHotel,
     getAllHotels,
-    getHotelBuId: getHotelById
+    getHotelById
 }
