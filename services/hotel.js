@@ -20,8 +20,20 @@ async function getHotelById(id){
     return hotel;
 }
 
+async function editHotel(id, hotelData){
+    const hotel =await Hotel.findById(id);
+
+    hotel.name = hotelData.name,
+    hotel.city = hotelData.city,
+    hotel.rooms = Number(hotelData.rooms),
+    hotel.imageUrl = hotelData.imageUrl
+
+    return hotel.save();
+
+}
 module.exports = {
     createHotel,
     getAllHotels,
-    getHotelById
+    getHotelById,
+    editHotel
 }
